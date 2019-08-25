@@ -1,0 +1,10 @@
+i: 0, threads: 0, time: 0.039799
+i: 1, threads: 0, time: 0.028129
+i: 2, threads: 0, time: 0.024043
+i: 3, threads: 0, time: 0.024152
+i: 4, threads: 0, time: 0.022688
+i: 5, threads: 0, time: 0.023161
+i: 6, threads: 0, time: 0.022660
+i: 7, threads: 0, time: 0.024686
+i: 8, threads: 0, time: 0.023321
+i: 9, threads: 0, time: 0.022524

@@ -1,0 +1,31 @@
+i: 0, threads: 1, time: 32.766804
+i: 1, threads: 1, time: 33.375683
+i: 2, threads: 1, time: 32.482475
+
+i: 0, threads: 2, time: 16.727398
+i: 1, threads: 2, time: 17.190950
+i: 2, threads: 2, time: 16.964016
+
+i: 0, threads: 3, time: 11.543768
+i: 1, threads: 3, time: 11.675278
+i: 2, threads: 3, time: 11.755346
+
+i: 0, threads: 4, time: 9.139172
+i: 1, threads: 4, time: 9.506518
+i: 2, threads: 4, time: 9.201123
+
+i: 0, threads: 5, time: 8.231188
+i: 1, threads: 5, time: 8.173685
+i: 2, threads: 5, time: 8.172533
+
+i: 0, threads: 6, time: 7.925494
+i: 1, threads: 6, time: 7.696099
+i: 2, threads: 6, time: 7.928283
+
+i: 0, threads: 7, time: 7.706779
+i: 1, threads: 7, time: 7.545084
+i: 2, threads: 7, time: 7.581343
+
+i: 0, threads: 8, time: 7.249966
+i: 1, threads: 8, time: 7.201938
+i: 2, threads: 8, time: 7.190840
