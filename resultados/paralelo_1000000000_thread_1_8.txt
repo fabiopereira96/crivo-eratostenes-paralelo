@@ -29,3 +29,18 @@ i: 2, threads: 7, time: 7.581343
 i: 0, threads: 8, time: 7.249966
 i: 1, threads: 8, time: 7.201938
 i: 2, threads: 8, time: 7.190840
+
+
+Dynamic:
+
+threads: 8, time: 12.609676 chunksize 8
+threads: 8, time: 11.003282 chunksize 4
+threads: 8, time: 8.747376  chunksize 2
+threads: 8, time: 7.190840  chunksize 1
+
+Static:
+
+threads: 8, time: 14.785712 chunksize 8
+threads: 8, time: 13.260491 chunksize 4
+threads: 8, time: 12.137591 chunksize 2
+threads: 8, time: 11.683933 chunksize 1

@@ -13,7 +13,7 @@
  *                                                              *
  *  Autor: Fabio Alves Pereira                                  *
  ***************************************************************/
-
+    
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
@@ -23,7 +23,7 @@
 #define ISPRIME 0
 
 /* Variaveis globais - entradas como parametro na execucao */
-unsigned long long INPUT_SIZE;
+int INPUT_SIZE;
 const char* TYPE_OUTPUT;
 int NUM_THREAD;
 
@@ -75,13 +75,13 @@ void toggle_bit(char *array, int index);
  *   Crivo de Eratóstenes  calcula todos os numeros       *
  *   primos ate um numero limite n.                       * 
  *   @param char *array lista de numeros avaliados        *
- *   @param unsigned long long n quantidade limite de     *
+ *   @param int n quantidade limite de                    *
  *   numeros a avaliar.                                   *
- *   @param unsigned long long sqrt_limit raiz quadrada   *
+ *   @param int sqrt_limit raiz quadrada                  *
  *   do numero limite de elementos a avaliar              *
  *   @return void                                         *
  *********************************************************/
-void sieve_eratosthenes_bit(char *array, unsigned long long n, unsigned long long sqrt_limit);
+void sieve_eratosthenes_bit(char *array, int n, int sqrt_limit);
 
 /* ****************************************************** *
  *   Crivo de Eratóstenes  calcula todos os numeros       *
@@ -91,13 +91,13 @@ void sieve_eratosthenes_bit(char *array, unsigned long long n, unsigned long lon
  *   passada como parametro para o algoritmo.             *
  *                                                        *
  *   @param char *array lista de numeros avaliados        *
- *   @param unsigned long long n quantidade limite de     *
+ *   @param int n quantidade limite de                    *
  *   numeros a avaliar.                                   *
- *   @param unsigned long long sqrt_limit raiz quadrada   *
+ *   @param int sqrt_limit raiz quadrada                  *
  *   do numero limite de elementos a avaliar              *
  *   @return void                                         *
  *********************************************************/
-void parallel_sieve_eratosthenes_bit(char *array, unsigned long long n, unsigned long long sqrt_limit);
+void parallel_sieve_eratosthenes_bit(char *array, int n, int sqrt_limit);
 
 int main(int argc, const char** argv) {
     if(parse_args(argc, argv) == 1){
@@ -106,11 +106,11 @@ int main(int argc, const char** argv) {
         struct timeval start, endt;
         float time_exec;
 
-        unsigned long long sqrt_limit = sqrt(INPUT_SIZE);
+        int sqrt_limit = sqrt(INPUT_SIZE);
 
         /* Executa o crivo medindo o tempo de execucao por ciclos de clock */
         gettimeofday(&start,NULL);
-            sieve_eratosthenes_bit(array, INPUT_SIZE, sqrt_limit);
+            parallel_sieve_eratosthenes_bit(array, INPUT_SIZE, sqrt_limit);
         gettimeofday(&endt,NULL);
         time_exec = ((endt.tv_sec  - start.tv_sec) * 1000000u + endt.tv_usec - start.tv_usec) / 1.e6;
         
@@ -120,8 +120,8 @@ int main(int argc, const char** argv) {
     return 0;
 }
 
-void parallel_sieve_eratosthenes_bit(char *array, unsigned long long n, unsigned long long sqrt_limit){ 
-	unsigned long long p, i;  
+void parallel_sieve_eratosthenes_bit(char *array, int n, int sqrt_limit){ 
+	int p, i;  
     #pragma omp parallel for schedule(dynamic) num_threads(NUM_THREAD) shared(array, sqrt_limit, n) private(p, i)
     for (p=2; p<=sqrt_limit; p++) {
         if (get_bit(array, p) == 0){
@@ -133,10 +133,10 @@ void parallel_sieve_eratosthenes_bit(char *array, unsigned long long n, unsigned
     }
 }
 
-void sieve_eratosthenes_bit(char *array, unsigned long long n, unsigned long long sqrt_time){
-    for (unsigned long long p=2; p<=sqrt_time; p++) {
+void sieve_eratosthenes_bit(char *array, int n, int sqrt_time){
+    for (int p=2; p<=sqrt_time; p++) {
         if (get_bit(array, p) == 0){
-            for (unsigned long long i=p*p; i<=n; i += p){
+            for (int i=p*p; i<=n; i += p){
                 if(get_bit(array, i) == 0)
                     toggle_bit(array, i); 
             }
@@ -154,7 +154,7 @@ char get_bit(char *array, int index) {
 
 void print_usage(const char* prog) {
     fprintf(stderr, "Você deve informar 3 parâmetros na linha de comando:\n");
-    fprintf(stderr, "\t- N: (unsigned long long) Limite superior [2, n] da lista de primos.\n");
+    fprintf(stderr, "\t- N: (int) Limite superior [2, n] da lista de primos.\n");
     fprintf(stderr, "\t- S: (char) Forma de representar os dados de saida. a = all, t=time, l=lista de primos.\n");
     fprintf(stderr, "\t- P: (int) Numero de threads para a execucao.\n");
 
@@ -169,10 +169,10 @@ void print_usage(const char* prog) {
 void print_output(char *array, double time){
     char v;
     if(TYPE_OUTPUT[0] == 'a' || TYPE_OUTPUT[0] == 'l'){
-        for (unsigned long long p=2; p<=INPUT_SIZE; p++){
+        for (int p=2; p<=INPUT_SIZE; p++){
             v = get_bit(array, p);
             if (v == ISPRIME) 
-                printf("%llu ", p);
+                printf("%d ", p);
         }
         printf("\n");
     }
